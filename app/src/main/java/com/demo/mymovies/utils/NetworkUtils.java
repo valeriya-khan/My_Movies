@@ -1,9 +1,20 @@
 package com.demo.mymovies.utils;
 
 import android.net.Uri;
+import android.os.AsyncTask;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.Buffer;
+import java.util.concurrent.ExecutionException;
 
 public class NetworkUtils {
     private static final String BASE_URL = "https://api.themoviedb.org/3/discover/movie";
@@ -21,7 +32,7 @@ public class NetworkUtils {
     public static final int POPULARITY = 0;
     public static final int TOP_RATED = 1;
 
-    public static URL buildURL(int sortBy, int page){
+    private static URL buildURL(int sortBy, int page){
         URL result = null;
         String methodOfSort;
         if(sortBy == POPULARITY){
@@ -41,5 +52,53 @@ public class NetworkUtils {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static JSONObject getJSONFromNetwork(int sortBy, int page){
+        JSONObject result = null;
+        URL url = buildURL(sortBy,page);
+        try {
+            result = new JSONLoadTask().execute(url).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private static class JSONLoadTask extends AsyncTask<URL,Void, JSONObject>{
+        @Override
+        protected JSONObject doInBackground(URL... urls) {
+            JSONObject result = null;
+            if(urls == null || urls.length==0){
+                return null;
+            }
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection)urls[0].openConnection();
+                InputStream inputStream = connection.getInputStream();
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                StringBuilder builder = new StringBuilder();
+                String line = bufferedReader.readLine();
+                while (line!=null){
+                    builder.append(line);
+                    line = bufferedReader.readLine();
+                }
+                try {
+                    result = new JSONObject(builder.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if(connection!=null){
+                    connection.disconnect();
+                }
+            }
+            return result;
+        }
     }
 }
