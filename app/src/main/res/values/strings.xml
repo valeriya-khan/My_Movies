@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">My Movies</string>
+    <string name="poster_of_movie">Poster of movie</string>
+    <string name="most_popular">Most Popular</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="add_to_favourite">Added to favourite</string>
+    <string name="remove_from_favourite">Removed from favourite</string>
 </resources>
