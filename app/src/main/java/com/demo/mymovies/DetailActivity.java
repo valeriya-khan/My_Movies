@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -45,17 +47,20 @@ public class DetailActivity extends AppCompatActivity {
     private TextView textViewOverview;
     private RecyclerView recyclerViewTrailers;
     private RecyclerView recyclerViewReviews;
+    private ScrollView scrollViewInfo;
     private ReviewAdapter reviewAdapter;
     private TrailerAdapter trailerAdapter;
     private int id;
     private MainViewModel viewModel;
     private Movie movie;
     private FavouriteMovie favouriteMovie;
+    private static String lang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        lang = Locale.getDefault().getLanguage();
         imageViewAddToFavourite = findViewById(R.id.imageViewAddToFavorite);
         imageViewBigPoster = findViewById(R.id.imageViewBigPoster);
         textViewTitle = findViewById(R.id.textViewTitle);
@@ -63,6 +68,7 @@ public class DetailActivity extends AppCompatActivity {
         textViewRating = findViewById(R.id.textViewRating);
         textViewReleaseDate = findViewById(R.id.textViewReleaseDate);
         textViewOverview = findViewById(R.id.textViewOverview);
+        scrollViewInfo = findViewById(R.id.scrollViewInfo);
 
         Intent intent = getIntent();
         if(intent!=null && intent.hasExtra("id")){
@@ -95,12 +101,13 @@ public class DetailActivity extends AppCompatActivity {
         recyclerViewReviews.setLayoutManager(new LinearLayoutManager(this));
         reviewAdapter = new ReviewAdapter();
         recyclerViewReviews.setAdapter(reviewAdapter);
-        JSONObject jsonObjectTrailers = NetworkUtils.getJSONForVideos(movie.getId());
-        JSONObject jsonObjectReview = NetworkUtils.getJSONForReviews(movie.getId());
+        JSONObject jsonObjectTrailers = NetworkUtils.getJSONForVideos(movie.getId(),lang);
+        JSONObject jsonObjectReview = NetworkUtils.getJSONForReviews(movie.getId(),lang);
         ArrayList<Trailer> trailers = JSONUtils.getTrailersFromJSON(jsonObjectTrailers);
         ArrayList<Review> reviews = JSONUtils.getReviewsFromJSON(jsonObjectReview);
         reviewAdapter.setReviews(reviews);
         trailerAdapter.setTrailers(trailers);
+        scrollViewInfo.smoothScrollTo(0,0);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
