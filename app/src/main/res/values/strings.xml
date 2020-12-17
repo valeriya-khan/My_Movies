@@ -8,4 +8,12 @@
     <string name="item_main">Main</string>
     <string name="item_favourite">Favourite</string>
     <string name="play_trailer">Play trailer</string>
+    <string name="title_string">Title:</string>
+    <string name="original_title_label">Original title:</string>
+    <string name="rating_label">Rating:</string>
+    <string name="release_date_label">Release Date:</string>
+    <string name="description_label">Description:</string>
+    <string name="big_poster_of_movie">Big poster of movie</string>
+    <string name="button_to_add_to_favourite">Button to add to favourite</string>
+    <string name="poster_of_movie">Poster of movie</string>
 </resources>
