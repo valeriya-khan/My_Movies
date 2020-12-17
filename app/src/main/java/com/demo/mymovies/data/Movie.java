@@ -35,7 +35,6 @@ public class Movie {
 
     @Ignore
     public Movie(int id, int voteCount, String title, String originalTitle, String overview, String posterPath, String bigPosterPath, String backdropPath, double voteAverage, String releaseDate) {
-        this.uniqueId = uniqueId;
         this.id = id;
         this.voteCount = voteCount;
         this.title = title;
