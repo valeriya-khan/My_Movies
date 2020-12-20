@@ -6,10 +6,8 @@
 
     <TextView
         android:id="@+id/textViewLabelTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/DetailDescriptionLabels"
         android:text="@string/title_string"
-        android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,78 +20,74 @@
 
     <TextView
         android:id="@+id/textViewTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/DetailDescription"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewLabelTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewLabelOriginalTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/DetailDescriptionLabels"
         android:text="@string/original_title_label"
-        android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
     <TextView
         android:id="@+id/textViewOriginalTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/DetailDescription"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewLabelOriginalTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
     <TextView
         android:id="@+id/textViewLabelRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/DetailDescriptionLabels"
         android:text="@string/rating_label"
-        android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewOriginalTitle" />
 
     <TextView
         android:id="@+id/textViewRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/DetailDescription"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewLabelRating"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
         app:layout_constraintTop_toBottomOf="@+id/textViewOriginalTitle" />
 
     <TextView
         android:id="@+id/textViewLabelReleaseDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/DetailDescriptionLabels"
         android:text="@string/release_date_label"
-        android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewRating" />
 
     <TextView
         android:id="@+id/textViewReleaseDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/DetailDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
         app:layout_constraintTop_toBottomOf="@+id/textViewRating" />
 
     <TextView
         android:id="@+id/textViewLabelDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/DetailDescriptionLabels"
         android:text="@string/description_label"
-        android:layout_marginStart="8dp"
-
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewReleaseDate" />
-
+    <!--    <item name="android:layout_width">0dp</item>-->
+    <!--    <item name="android:layout_height">wrap_content</item>android:layout_width="wrap_content"-->
+    <!--    <item name="android:layout_marginTop">8dp</item>-->
+    <!--    <item name="android:layout_marginEnd">16dp</item>-->
     <TextView
         android:id="@+id/textViewOverview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewLabelDescription" />
