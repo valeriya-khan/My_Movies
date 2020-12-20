@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -36,12 +37,14 @@ public class FavouriteActivity extends AppCompatActivity {
         recyclerViewFavouriteMovies.setAdapter(movieAdapter);
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         LiveData<List<FavouriteMovie>> favouriteMovies = viewModel.getFavouriteMovies();
+
         favouriteMovies.observe(this, new Observer<List<FavouriteMovie>>() {
             @Override
             public void onChanged(List<FavouriteMovie> favouriteMovies) {
                 List<Movie> movies = new ArrayList<>();
                 if(favouriteMovies!=null){
                     movies.addAll(favouriteMovies);
+                    Log.i("myres", String.valueOf(movies.size()));
                     movieAdapter.setMovies(movies);
                 }
 
@@ -51,8 +54,11 @@ public class FavouriteActivity extends AppCompatActivity {
             @Override
             public void onPosterClick(int position) {
                 Movie movie = movieAdapter.getMovies().get(position);
+                Log.i("myres",movie.getBigPosterPath());
                 Intent intent = new Intent(FavouriteActivity.this,DetailActivity.class);
+                Log.i("myres", String.valueOf(movie.getId()));
                 intent.putExtra("id",movie.getId());
+                intent.putExtra("source","FavouriteActivity");
                 startActivity(intent);
             }
         });

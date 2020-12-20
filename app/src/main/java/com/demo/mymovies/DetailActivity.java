@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.text.LineBreaker;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -51,6 +53,7 @@ public class DetailActivity extends AppCompatActivity {
     private ReviewAdapter reviewAdapter;
     private TrailerAdapter trailerAdapter;
     private int id;
+    private String source;
     private MainViewModel viewModel;
     private Movie movie;
     private FavouriteMovie favouriteMovie;
@@ -77,11 +80,26 @@ public class DetailActivity extends AppCompatActivity {
             finish();
         }
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        movie = viewModel.getMovieById(id);
-        Picasso.get().load(movie.getBigPosterPath()).into(imageViewBigPoster);
+        if(intent!=null && intent.hasExtra("source")){
+            source = intent.getStringExtra("source");
+            switch (source){
+                case "FavouriteActivity":
+                    movie = viewModel.getFavouriteMovieById(id);
+                    break;
+                default:
+                    movie = viewModel.getMovieById(id);
+                    break;
+            }
+        }else{
+            finish();
+        }
+        Picasso.get().load(movie.getBigPosterPath()).placeholder(R.drawable.poster_placeholder).into(imageViewBigPoster);
         textViewTitle.setText(movie.getTitle());
         textViewOriginalTitle.setText(movie.getOriginalTitle());
         textViewOverview.setText(movie.getOverview());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            textViewOverview.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD);
+        }
         textViewReleaseDate.setText(movie.getReleaseDate());
         textViewRating.setText(Double.toString(movie.getVoteAverage()));
         setFavourite();
